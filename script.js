@@ -780,14 +780,53 @@ renderCart();
 
     if (!list || !form || !starBox) return;
 
-    let reviews = [];
+    const defaultReviews = [
+        {
+            name: "Synthia P.",
+            rating: 5,
+            comment: "Super cozy spot in Aritao! Their Iced Spanish Latte is my go-to whenever I need to study.",
+            date: "2026-02-10T10:00:00.000Z"
+        },
+        {
+            name: "Alicia R.",
+            rating: 5,
+            comment: "The Study Break Meal is a lifesaver for students. Sulit sa ₱75 and generous serving!",
+            date: "2026-02-14T14:30:00.000Z"
+        },
+        {
+            name: "Ashleen S.",
+            rating: 5,
+            comment: "Loved the Creamy Chicken Pesto and Seasalt Latte. Friendly staff and relaxing ambiance.",
+            date: "2026-02-18T16:15:00.000Z"
+        },
+        {
+            name: "Winny S.",
+            rating: 4,
+            comment: "Great place to hang out with friends. Tiramisu Latte and Truffle Fries are a must-try.",
+            date: "2026-02-22T18:00:00.000Z"
+        },
+        {
+            name: "Ron C.",
+            rating: 5,
+            comment: "Best Strawberry Matcha around Nueva Vizcaya! Will definitely come back again.",
+            date: "2026-03-01T11:20:00.000Z"
+        },
+        {
+            name: "John H.",
+            rating: 5,
+            comment: "Good food, great coffee, and very welcoming vibes. Perfect corner to unwind.",
+            date: "2026-03-05T15:45:00.000Z"
+        }
+    ];
+
+    let userReviews = [];
     let rating = 0;
 
     try {
         const saved = JSON.parse(localStorage.getItem(KEY) || "[]");
-        reviews = Array.isArray(saved) ? saved : [];
+        userReviews = Array.isArray(saved) ? saved : [];
     } catch (err) {
-        reviews = [];
+        userReviews = [];
     }
 
     const starBtns = [...starBox.querySelectorAll(".star-btn")];
@@ -799,26 +838,23 @@ renderCart();
 
     function save() {
         try {
-            localStorage.setItem(KEY, JSON.stringify(reviews));
+            localStorage.setItem(KEY, JSON.stringify(userReviews));
         } catch (err) {
             showToast("Could not save your review on this device.");
         }
     }
 
     function render() {
-        if (!reviews.length) {
-            list.innerHTML = '<div class="reviews-empty">No reviews yet. Be the first to share your visit.</div>';
-            summary.innerHTML = "";
-            return;
-        }
+        // Combine newly submitted reviews with the 6 permanent reviews
+        const allReviews = [...userReviews, ...defaultReviews];
 
-        const avg = reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
+        const avg = allReviews.reduce((sum, r) => sum + r.rating, 0) / allReviews.length;
 
         summary.innerHTML = `<strong>${avg.toFixed(1)} / 5</strong>` +
             `<span class="stars">${stars(Math.round(avg))}</span><br>` +
-            `${reviews.length} review${reviews.length === 1 ? "" : "s"}`;
+            `${allReviews.length} review${allReviews.length === 1 ? "" : "s"}`;
 
-        list.innerHTML = reviews.map(r => {
+        list.innerHTML = allReviews.map(r => {
             const date = new Date(r.date).toLocaleDateString("en-PH", {
                 year: "numeric",
                 month: "short",
@@ -861,7 +897,7 @@ renderCart();
             return;
         }
 
-        reviews.unshift({
+        userReviews.unshift({
             name: name.slice(0, 40),
             rating,
             comment: comment.slice(0, 400),
@@ -878,3 +914,4 @@ renderCart();
 
     render();
 })();
+
