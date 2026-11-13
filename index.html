@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mattheo's Brew Café</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="#home"><span class="brand-mark">☕</span><span><strong>Mattheo's Brew Café</strong><small>GOOD FOOD · GREAT COFFEE · BETTER DAYS</small></span></a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">☰</button>
+        <nav id="nav">
+            <a href="#home">Home</a>
+            <a href="#menu">Menu</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-copy">
+                <p class="eyebrow">YOUR COZY CORNER IN ARITAO</p>
+                <h1>Good Food.<br>Great Coffee.<br><em>Better Days.</em></h1>
+                <p>Freshly brewed coffee, comforting meals, and good vibes for every kind of day.</p>
+                <a class="button button-light" href="#menu">Explore Our Menu <span>↗</span></a>
+            </div>
+            <div class="hero-photo">
+                <img src="Pictures/photo.jpg" alt="Freshly prepared coffee">
+                <div class="hero-stamp">BREWED<br>WITH CARE<br><span>♡</span></div>
+            </div>
+        </section>
+
+        <section class="section favorites">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">A LITTLE SOMETHING FOR YOU</p>
+                    <h2>Customer Favorites</h2>
+                </div>
+                <a class="text-link" href="#menu">See full menu ↗</a>
+            </div>
+            <div class="product-grid" id="favoritesGrid"></div>
+        </section>
+
+        <section class="section menu-section" id="menu">
+            <div class="section-heading menu-heading">
+                <div>
+                    <p class="eyebrow">MADE FRESH, MADE FOR YOU</p>
+                    <h2>Our Menu</h2>
+                    <p class="section-subtitle">Find your favorite. Make it your own.</p>
+                </div>
+            </div>
+            <div class="category-tabs" id="categoryTabs">
+                <button class="category-tab active" data-category="All">All</button>
+                <button class="category-tab" data-category="Rice Meals">Rice Meals</button>
+                <button class="category-tab" data-category="Pasta">Pasta</button>
+                <button class="category-tab" data-category="Fries">Fries</button>
+                <button class="category-tab" data-category="Study Break">Study Break</button>
+                <button class="category-tab" data-category="Hot Coffee">Hot Coffee</button>
+                <button class="category-tab" data-category="Iced Coffee">Iced Coffee</button>
+                <button class="category-tab" data-category="Blended Coffee">Blended</button>
+                <button class="category-tab" data-category="Non-Coffee">Non-Coffee</button>
+                <button class="category-tab" data-category="Matcha">Matcha</button>
+                <button class="category-tab" data-category="Fruit Soda">Fruit Soda</button>
+                <button class="category-tab" data-category="Signature Drinks">Signature</button>
+                <button class="category-tab" data-category="Add-ons">Add-ons</button>
+            </div>
+            <div class="menu-tools">
+                <label class="search-box">
+                    <span>⌕</span>
+                    <input id="searchInput" type="search" placeholder="Search coffee, meals, pasta...">
+                </label>
+                <span id="menuResultCount" class="muted"></span>
+            </div>
+            <div class="menu-grid" id="menuGrid"></div>
+        </section>
+
+        <section class="study-banner">
+            <div>
+                <p class="eyebrow">FOR YOUR STUDY BREAK</p>
+                <h2>Fuel your focus. ♡</h2>
+                <p>Present your STUDENT ID at the counter and enjoy our Study Break Meal for ₱75.</p>
+                <strong>GOOD FOOD · GOOD VIBES · BETTER FOCUS</strong>
+            </div>
+            <div class="study-details">
+                <p><b>Choose your rice</b> + <b>your egg</b> + <b>your ulam</b></p>
+                <p>Egg: Sunny side up or scrambled</p>
+                <p>Ulam: Hotdog, breaded porkchop, fried chicken, or corned beef</p>
+                <button class="button button-dark" id="studyOrder">Build a Study Break Meal</button>
+            </div>
+        </section>
+    </main>
+
+    <button class="cart-fab" id="cartFab" aria-label="Open cart">🛍 <span id="cartFabCount">0</span></button>
+    <div class="overlay" id="cartOverlay"></div>
+
+    <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+        <div class="drawer-header">
+            <div>
+                <p class="eyebrow">YOUR ORDER</p>
+                <h2>Your Cart</h2>
+            </div>
+            <button class="icon-button" id="closeCart" aria-label="Close cart">×</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">Your cart is waiting for something good. ♡</div>
+        </div>
+        <div class="cart-bottom">
+            <div class="cart-total"><span>Total</span><strong id="cartTotal">₱0</strong></div>
+            <button class="button button-dark full-width" id="checkoutButton">Continue to Order</button>
+            <p class="tiny-note">Order details will be sent to the café through this demo form.</p>
+        </div>
+    </aside>
+
+    <div class="modal-backdrop" id="checkoutModal">
+        <div class="modal">
+            <button class="icon-button modal-close" data-close="checkoutModal">×</button>
+            <p class="eyebrow">ALMOST THERE</p>
+            <h2>Place your order</h2>
+            <form id="checkoutForm">
+                <label>Your name<input name="customerName" required placeholder="Full name"></label>
+                <label>Contact number<input name="phone" required type="tel" placeholder="09XX XXX XXXX"></label>
+                <label>Order type
+                    <select name="orderType" required>
+                        <option value="">Choose one</option>
+                        <option>Dine-in</option>
+                        <option>Pickup</option>
+                    </select>
+                </label>
+                <label>Notes (optional)<textarea name="notes" rows="2" placeholder="Special requests"></textarea></label>
+                <div class="form-total"><span>Order total</span><strong id="checkoutTotal">₱0</strong></div>
+                <button class="button button-dark full-width" type="submit">Submit Order</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="studyModal">
+        <div class="modal">
+            <button class="icon-button modal-close" data-close="studyModal">×</button>
+            <p class="eyebrow">STUDENT MEAL · ₱75</p>
+            <h2>Build your meal</h2>
+            <form id="studyForm">
+                <label>Choose your ulam
+                    <select name="ulam" required>
+                        <option value="">Choose one</option>
+                        <option>Hotdog (2 pcs Tender Juicy)</option>
+                        <option>Breaded Porkchop</option>
+                        <option>Fried Chicken</option>
+                        <option>Corned Beef</option>
+                    </select>
+                </label>
+                <label>Choose your egg
+                    <select name="egg" required>
+                        <option value="">Choose one</option>
+                        <option>Sunny Side Up</option>
+                        <option>Scrambled Egg</option>
+                    </select>
+                </label>
+                <label>Quantity<input name="quantity" type="number" min="1" value="1" required></label>
+                <button class="button button-dark full-width" type="submit">Add Meal · ₱75</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="successModal">
+        <div class="modal success-modal">
+            <div class="success-icon">✓</div>
+            <h2>Order received!</h2>
+            <p id="successMessage">Your demo order has been recorded.</p>
+            <button class="button button-dark full-width" data-close="successModal">Done</button>
+        </div>
+    </div>
+
+    <section class="section reviews-section" id="reviews">
+        <div class="section-heading reviews-heading">
+            <div>
+                <p class="eyebrow">WHAT GUESTS SAY</p>
+                <h2>Customer Reviews</h2>
+            </div>
+            <div class="reviews-summary" id="reviewsSummary"></div>
+        </div>
+
+        <div class="reviews-list" id="reviewsList"></div>
+
+        <div class="about-card review-card">
+            <h2>Your Turn to Review</h2>
+            <form id="reviewForm" novalidate>
+                <div class="message-form-group">
+                    <label for="reviewName">Name:</label>
+                    <input id="reviewName" type="text" name="name" placeholder="Enter your name" maxlength="40" required>
+                </div>
+                <div class="message-form-group">
+                    <label id="ratingLabel">Rating:</label>
+                    <div class="star-input" id="starInput" role="group" aria-labelledby="ratingLabel">
+                        <button type="button" class="star-btn" data-value="1" aria-label="1 star">★</button>
+                        <button type="button" class="star-btn" data-value="2" aria-label="2 stars">★</button>
+                        <button type="button" class="star-btn" data-value="3" aria-label="3 stars">★</button>
+                        <button type="button" class="star-btn" data-value="4" aria-label="4 stars">★</button>
+                        <button type="button" class="star-btn" data-value="5" aria-label="5 stars">★</button>
+                    </div>
+                    <p class="rating-error" id="ratingError"></p>
+                </div>
+                <div class="message-form-group">
+                    <label for="reviewComment">Your review:</label>
+                    <textarea id="reviewComment" name="comment" rows="4" placeholder="Tell us about your visit" maxlength="400" required></textarea>
+                </div>
+                <button type="submit" class="review-submit"><i class="fa-solid fa-paper-plane"></i> Submit Review</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="about-section" id="about">
+        <div class="about-grid">
+            <div class="about-left">
+                <div class="about-card story-card">
+                    <h2>Our Story</h2>
+                    <p><b>Mattheo's Brew Café</b> is a cozy café that serves high-quality, refreshing drinks, and delicious meals. We aim to create a space where students, friends, and families can relax, feel at home, and enjoy good food and great vibes.</p>
+                </div>
+
+                <div class="about-card location-card">
+                    <h3><i class="fa-solid fa-location-dot"></i> Location</h3>
+                    <p>Rizal Street, Poblacion, Aritao, Nueva Vizcaya</p>
+                </div>
+
+                <div class="about-card quote-card">
+                    <img src="Pictures/ye.jpg" alt="Coffee at Mattheo's Brew Café">
+                    <div class="quote-text">
+                        <p class="quote">"Good food brings people together."</p>
+                        <p class="quote-author">Mattheo's Brew Café</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-right">
+                <div class="about-card business-hours-card">
+                    <h3><i class="fa-regular fa-clock"></i> Business Hours</h3>
+                    <p>Monday - Sunday</p>
+                    <p class="business-hours">9 AM - 8 PM</p>
+                </div>
+
+                <div class="about-card map-card">
+                    <h3><i class="fa-solid fa-map-location-dot"></i> Our Café Location</h3>
+                    <iframe src="https://maps.google.com/maps?q=Mattheo's%20Brew%20Cafe&output=embed" class="about-map" title="Map showing Mattheo's Brew Café location" loading="lazy"></iframe>
+                    <a href="https://maps.google.com/maps?q=Mattheo's%20Brew%20Cafe" target="_blank" rel="noopener noreferrer" class="map-link">View Larger Map</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer" id="contact">
+        <div class="footer-icons">
+            <a href="tel:+639473917465" aria-label="Call 0947 391 7465" title="Call 0947 391 7465"><i class="fa-solid fa-phone"></i></a>
+            <a href="mailto:mattheosbrewcafe@gmail.com" aria-label="Email mattheosbrewcafe@gmail.com" title="Email mattheosbrewcafe@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+            <a href="https://www.facebook.com/mattheosbrewcafe" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://www.instagram.com/mattheosbrewcafe/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@mattheosbrewcafe" target="_blank" rel="noopener noreferrer" aria-label="TikTok" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+        <p>&copy; 2026 Mattheo's Brew Café. All Rights Reserved.</p>
+    </footer>
+
+    <div class="modal-backdrop" id="confirmModal">
+        <div class="modal confirm-modal" role="alertdialog" aria-labelledby="confirmTitle" aria-describedby="confirmMessage">
+            <h2 id="confirmTitle">Are you sure?</h2>
+            <p id="confirmMessage"></p>
+            <div class="confirm-actions">
+                <button type="button" class="button confirm-no" id="confirmNo">Go Back</button>
+                <button type="button" class="button button-dark" id="confirmYes">Yes</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <script src="script.js"></script>
+</body>
+</html>
