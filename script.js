@@ -697,7 +697,7 @@ $("checkoutForm")?.addEventListener("submit", async e => {
     const success = $("successMessage");
 
     if (success) {
-        success.textContent = `Thank you, ${customer}. Your order #${String(order.id).slice(-4)} has been recorded in this website demo.`;
+        success.textContent = `Thank you, ${customer}. Order confirmed! Your order #${String(order.id).slice(-4)} has been sent to Mattheo's Brew Cafe.`;
     }
 
     showModal("successModal");
